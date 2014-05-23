@@ -103,7 +103,8 @@ class UrlParser(object):
         path = simplify_regex(prefix + pattern.regex.pattern)
 
         if filter_path is not None:
-            if filter_path not in path:
+            # make sure we get only urls that belong to this app
+            if path.find('/' + filter_path + '/') != 0:
                 return None
 
         path = path.replace('<', '{').replace('>', '}')
